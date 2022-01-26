@@ -1,9 +1,12 @@
 package com.sg.soft.KataBankApp.dto;
 
+import com.sg.soft.KataBankApp.model.KataUser;
+
 public class AccountDTO {
 
     private Long accountNumber;
     private Double balance;
+    private KataUser kataUser;
 
     public AccountDTO(Long accountNumber, Double balance) {
         this.accountNumber = accountNumber;
@@ -24,5 +27,13 @@ public class AccountDTO {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public KataUser getKataUser() {
+        return kataUser;
+    }
+
+    public void setKataUser(KataUser kataUser) {
+        this.kataUser = kataUser;
     }
 }

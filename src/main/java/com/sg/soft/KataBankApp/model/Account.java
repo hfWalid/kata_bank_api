@@ -17,6 +17,11 @@ public class Account {
     @Column(name = "balance")
     private Double balance;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "kata_user_id")
+    @OrderBy("id")
+    private KataUser kataUser;
+
     public Long getId() {
         return id;
     }
@@ -39,5 +44,13 @@ public class Account {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public KataUser getKataUser() {
+        return kataUser;
+    }
+
+    public void setKataUser(KataUser kataUser) {
+        this.kataUser = kataUser;
     }
 }

@@ -1,11 +1,10 @@
 /*------------------------------------------------------------
- -- Table: statement
+ -- Table: kata_user
  ------------------------------------------------------------*/
-create TABLE statement(
+create TABLE kata_user(
                           id SERIAL PRIMARY KEY,
-                          statement_amount FLOAT,
-                          statement_date DATE,
-                          statement_type VARCHAR (50)
+                          user_name VARCHAR (50),
+                          password VARCHAR (50)
 );
 
 /*------------------------------------------------------------
@@ -13,8 +12,20 @@ create TABLE statement(
  ------------------------------------------------------------*/
 create TABLE account(
                         id SERIAL PRIMARY KEY,
-                        statement_id INT,
+                        kata_user_id INT,
                         account_number FLOAT,
                         balance FLOAT,
-                        FOREIGN KEY (statement_id) REFERENCES statement(id)
+                        FOREIGN KEY (kata_user_id) REFERENCES kata_user(id)
+);
+
+/*------------------------------------------------------------
+ -- Table: statement
+ ------------------------------------------------------------*/
+create TABLE statement(
+                          id SERIAL PRIMARY KEY,
+                          account_id INT,
+                          statement_amount FLOAT,
+                          statement_date DATE,
+                          statement_type VARCHAR (50),
+                          FOREIGN KEY (account_id) REFERENCES account(id)
 );

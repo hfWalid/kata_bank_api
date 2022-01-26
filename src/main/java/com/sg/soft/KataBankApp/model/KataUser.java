@@ -1,7 +1,6 @@
 package com.sg.soft.KataBankApp.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "kata_user")
@@ -16,11 +15,6 @@ public class KataUser {
 
     @Column(name = "password")
     private String password;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "kata_user_id")
-    @OrderBy("id")
-    private Set<Account> accounts;
 
     public Long getId() {
         return id;
@@ -44,13 +38,5 @@ public class KataUser {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Set<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(Set<Account> accounts) {
-        this.accounts = accounts;
     }
 }
