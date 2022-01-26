@@ -3,17 +3,16 @@ package com.sg.soft.KataBankApp.controller;
 import com.sg.soft.KataBankApp.common.dto.ResponseDTO;
 import com.sg.soft.KataBankApp.dto.AccountDTO;
 import com.sg.soft.KataBankApp.dto.StatementDTO;
+import com.sg.soft.KataBankApp.dto.StatementRequestDTO;
 import com.sg.soft.KataBankApp.service.AccountService;
 import com.sg.soft.KataBankApp.service.StatementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/statement")
 public class StatementController {
 
@@ -26,70 +25,61 @@ public class StatementController {
         this.accountService = accountService;
     }
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public ResponseDTO<List<StatementDTO>> getStatements(
-            @RequestParam(value = "accountNumber", required = true) Long accountNumber,
+            @RequestParam(value = "accountNumber") Long accountNumber,
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
             @RequestParam(value = "size", required = false, defaultValue = "25") int size){
-        ResponseDTO<List<StatementDTO>> response = new ResponseDTO<>();
-        response.setMessage("Account number: ".concat(accountNumber.toString()));
+        ResponseDTO<List<StatementDTO>> response = new ResponseDTO<>(ResponseDTO.SUCCESS, null);
 
-        List<StatementDTO> statementsList = statementService.findAllByAccountNumber(accountNumber, page, size);
+
+        List<StatementDTO> statementsList = this.statementService.findAllByAccountNumber(accountNumber, page, size);
 
         //TODO: verify account is owned by authenticated client
 
-        if(statementsList.size() > 0){
-            response.setContent(statementsList);
-        }
-        response.setMessage(null);
-
+        response.setContent(statementsList);
         return response;
     }
 
-    @PostMapping(path = "/deposit", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping( "/deposit")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseDTO<StatementDTO> makeDeposit(
-            @RequestBody Long accountNumber,
-            @RequestBody Double statementAmount
-    ){
-        ResponseDTO<StatementDTO> response = new ResponseDTO<>();
-        response.setMessage("Account number: ".concat(accountNumber.toString()));
+    public ResponseDTO<StatementDTO> deposit(@RequestBody StatementRequestDTO statementRequestDTO){
+        ResponseDTO<StatementDTO> response = new ResponseDTO<>(ResponseDTO.SUCCESS, null);
+        response.setMessage("Account number: ".concat(statementRequestDTO.getAccountNumber().toString()));
 
         //TODO: verify account is owned by authenticated client
 
-        AccountDTO account = accountService.findAccountByAccountNumber(accountNumber);
+        AccountDTO account = accountService.findAccountByAccountNumber(statementRequestDTO.getAccountNumber());
 
         if(account == null){
             response.setContent(null);
             return response;
         }
 
-        StatementDTO statement = statementService.makeDeposit(accountNumber, statementAmount);
+        StatementDTO statement = statementService.makeDeposit(statementRequestDTO.getAccountNumber(), statementRequestDTO.getStatementAmount());
 
         response.setContent(statement);
         return response;
     }
 
-    @PostMapping(path = "/withdrawal", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping( "/withdrawal")
     @ResponseStatus(HttpStatus.OK)
     public ResponseDTO<StatementDTO> makeWithdrawal(
-            @RequestBody Long accountNumber,
-            @RequestBody Double statementAmount
-    ){
-        ResponseDTO<StatementDTO> response = new ResponseDTO<>();
-        response.setMessage("Account number: ".concat(accountNumber.toString()));
+            @RequestBody StatementRequestDTO statementRequestDTO){
+        ResponseDTO<StatementDTO> response = new ResponseDTO<>(ResponseDTO.SUCCESS, null);
+        response.setMessage("Account number: ".concat(statementRequestDTO.getStatementAmount().toString()));
 
         //TODO: verify account is owned by authenticated client
 
-        AccountDTO account = accountService.findAccountByAccountNumber(accountNumber);
+        AccountDTO account = accountService.findAccountByAccountNumber(statementRequestDTO.getAccountNumber());
 
         if(account == null){
             response.setContent(null);
             return response;
         }
 
-        StatementDTO statement = statementService.makeWithdrawal(accountNumber, statementAmount);
+        StatementDTO statement = statementService.makeWithdrawal(statementRequestDTO.getAccountNumber(), statementRequestDTO.getStatementAmount());
 
         response.setContent(statement);
         return response;

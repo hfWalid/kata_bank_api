@@ -15,7 +15,7 @@ public class Statement {
     @Column(name = "statement_date")
     private Date statementDate;
 
-    @Column(name = "statement_amount")
+    @Column(name = "statement_amount", unique = true, nullable = false)
     private Double statementAmount;
 
     @Column(name = "statement_type")

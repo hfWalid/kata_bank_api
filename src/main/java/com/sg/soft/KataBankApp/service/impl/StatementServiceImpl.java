@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,12 +46,19 @@ public class StatementServiceImpl implements StatementService {
 
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "statementDate"));
 
-        List<Statement> statementsList = statementRepository.findAllByAccount_AccountNumber(accountNumber, pageRequest);
+        Account account = accountRepository.findFirstByAccountNumber(accountNumber);
+        List<StatementDTO> resultList = new ArrayList<>();
 
-        List<StatementDTO> resultList = statementsList.stream()
-                .map(statement -> modelMapper.map(statement, StatementDTO.class))
-                //.sorted(Comparator.comparing(StatementDTO::getStatementDate))
-                .collect(Collectors.toList());
+        if(account != null){
+            List<Statement> statementsList = statementRepository.findByAccountAccountNumber(accountNumber, pageRequest);
+
+            if(statementsList != null && statementsList.size() > 0){
+                resultList = statementsList.stream()
+                        .map(statement -> this.modelMapper.map(statement, StatementDTO.class))
+                        //.sorted(Comparator.comparing(StatementDTO::getStatementDate))
+                        .collect(Collectors.toList());
+            }
+        }
         return resultList;
     };
 
