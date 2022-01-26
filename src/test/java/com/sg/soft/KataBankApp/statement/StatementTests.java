@@ -33,7 +33,23 @@ public class StatementTests {
     }
 
     @Test
-    void getStatementsTest() throws Exception {
+    void shouldGetStatementsTest() throws Exception {
+
+    }
+    @Test
+    void should_Not_GetStatementsTest() throws Exception {
+
+    }
+    @Test
+    void shouldMakeDepositTest() throws Exception {
+
+    }
+    @Test
+    void shouldMakeWithdrawalTest() throws Exception {
+
+    }
+    @Test
+    void should_Not_MakeWithdrawalTest() throws Exception {
 
     }
 
