@@ -1,4 +1,4 @@
-package com.sg.soft.KataBankApp.utils;
+package com.sg.soft.KataBankApp.common.utils;
 
 public class Constants {
 

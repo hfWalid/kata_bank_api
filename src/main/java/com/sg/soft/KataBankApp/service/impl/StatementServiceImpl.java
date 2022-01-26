@@ -6,7 +6,7 @@ import com.sg.soft.KataBankApp.model.Statement;
 import com.sg.soft.KataBankApp.repository.AccountRepository;
 import com.sg.soft.KataBankApp.repository.StatementRepository;
 import com.sg.soft.KataBankApp.service.StatementService;
-import com.sg.soft.KataBankApp.utils.Constants;
+import com.sg.soft.KataBankApp.common.utils.Constants;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
