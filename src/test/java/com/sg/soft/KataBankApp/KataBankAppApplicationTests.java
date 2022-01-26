@@ -114,6 +114,27 @@ class KataBankAppApplicationTests {
 	@Test
 	@DisplayName("Test suit for -> should make withdrawal success")
 	public void shouldMakeWithdrawalTest() throws Exception {
+		AccountDTO accountDTO = new AccountDTO(Constants.ACCOUNT_NUMBER, Constants.BALANCE);
+		StatementDTO expectedStatementDTO = new StatementDTO(1L, new Date(), Constants.STATEMENT_AMOUNT, Constants.WITHDRAWAL, accountDTO);
+
+		StatementRequestDTO statementRequestDTO = new StatementRequestDTO();
+		statementRequestDTO.setStatementAmount(Constants.STATEMENT_AMOUNT);
+		statementRequestDTO.setAccountNumber(Constants.ACCOUNT_NUMBER);
+
+		String preparedJsonRequest = "{\"accountNumber\":\""
+				+ statementRequestDTO.getAccountNumber() + "\",\"statementAmount\":\""
+				+ statementRequestDTO.getStatementAmount() +"\"}";
+
+		when(statementService.makeWithdrawal(Constants.ACCOUNT_NUMBER, Constants.STATEMENT_AMOUNT)).thenReturn(expectedStatementDTO);
+
+		assertEquals(expectedStatementDTO.getStatementAmount(), Constants.STATEMENT_AMOUNT);
+		assertEquals(expectedStatementDTO.getAccount().getAccountNumber(), Constants.ACCOUNT_NUMBER);
+
+		this.mockMvc.perform(post("/statement/withdrawal")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(preparedJsonRequest))
+				.andDo(print())
+				.andExpect(status().isOk());
 
 	}
 	@Test
