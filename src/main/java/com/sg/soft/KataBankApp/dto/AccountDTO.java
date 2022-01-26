@@ -5,6 +5,11 @@ public class AccountDTO {
     private Long accountNumber;
     private Double balance;
 
+    public AccountDTO(Long accountNumber, Double balance) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
+
     public Long getAccountNumber() {
         return accountNumber;
     }

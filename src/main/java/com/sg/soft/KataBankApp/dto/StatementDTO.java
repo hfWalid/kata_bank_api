@@ -14,6 +14,17 @@ public class StatementDTO {
 
     private AccountDTO account;
 
+    public StatementDTO() {
+    }
+
+    public StatementDTO(Long id, Date statementDate, Double statementAmount, String statementType, AccountDTO account) {
+        this.id = id;
+        this.statementDate = statementDate;
+        this.statementAmount = statementAmount;
+        this.statementType = statementType;
+        this.account = account;
+    }
+
     public Long getId() {
         return id;
     }

@@ -21,6 +21,6 @@ dependencies {
 	implementation 'org.modelmapper:modelmapper:3.0.0'
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
 }
