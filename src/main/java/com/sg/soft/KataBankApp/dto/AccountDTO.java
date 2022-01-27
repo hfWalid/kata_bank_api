@@ -1,12 +1,24 @@
 package com.sg.soft.KataBankApp.dto;
 
 import com.sg.soft.KataBankApp.model.KataUser;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AccountDTO {
 
+    @Schema(description = "Unique identifier of the account.",
+            example = "1234567890L", required = true)
     private Long accountNumber;
+
+    @Schema(description = "The balance of the account.",
+            example = "2300.00", required = false)
     private Double balance;
+
+    @Schema(description = "The owner of the current account.",
+            example = "1", required = true)
     private KataUser kataUser;
+
+    public AccountDTO() {
+    }
 
     public AccountDTO(Long accountNumber, Double balance) {
         this.accountNumber = accountNumber;
