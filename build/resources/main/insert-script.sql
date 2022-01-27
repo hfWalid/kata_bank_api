@@ -4,3 +4,11 @@
 insert into account(id, account_number, balance) values
     (1, 1234567890, 1000.00),
     (2, 1234567891, 1000.00);
+
+/*------------------------------------------------------------
+ -- Table: kata_user
+ ------------------------------------------------------------*/
+insert into kata_user(id, user_name, password) values
+    (1, 'whf', '123*aqw'),
+    (2, 'user1', '123*aqw');
+
