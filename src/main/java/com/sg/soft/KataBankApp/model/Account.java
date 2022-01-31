@@ -1,6 +1,7 @@
 package com.sg.soft.KataBankApp.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "account")
@@ -11,11 +12,12 @@ public class Account {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    //TODO: should be devided to: Rib: bankCode + atmCode + accountNumber + ribKey  // IBAN unique // swiftCode
     @Column(name = "account_number", unique = true, nullable = false)
     private Long accountNumber;
 
     @Column(name = "balance")
-    private Double balance;
+    private BigDecimal balance;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "kata_user_id")
@@ -38,11 +40,11 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 

@@ -1,9 +1,11 @@
 package com.sg.soft.KataBankApp.dto;
 
+import java.math.BigDecimal;
+
 public class StatementRequestDTO {
 
     private Long accountNumber;
-    private Double statementAmount;
+    private BigDecimal statementAmount;
 
     public Long getAccountNumber() {
         return accountNumber;
@@ -13,11 +15,11 @@ public class StatementRequestDTO {
         this.accountNumber = accountNumber;
     }
 
-    public Double getStatementAmount() {
+    public BigDecimal getStatementAmount() {
         return statementAmount;
     }
 
-    public void setStatementAmount(Double statementAmount) {
+    public void setStatementAmount(BigDecimal statementAmount) {
         this.statementAmount = statementAmount;
     }
 }

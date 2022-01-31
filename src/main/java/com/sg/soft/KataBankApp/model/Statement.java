@@ -1,6 +1,7 @@
 package com.sg.soft.KataBankApp.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -16,7 +17,7 @@ public class Statement {
     private Date statementDate;
 
     @Column(name = "statement_amount", unique = true, nullable = false)
-    private Double statementAmount;
+    private BigDecimal statementAmount;
 
     @Column(name = "statement_type")
     private String statementType;
@@ -27,7 +28,7 @@ public class Statement {
 
     public Statement() {}
 
-    public Statement(Double statementAmount, String statementType, Account account) {
+    public Statement(BigDecimal statementAmount, String statementType, Account account) {
         this.statementDate = new Date();
         this.statementAmount = statementAmount;
         this.statementType = statementType;
@@ -50,11 +51,11 @@ public class Statement {
         this.statementDate = statementDate;
     }
 
-    public Double getStatementAmount() {
+    public BigDecimal getStatementAmount() {
         return statementAmount;
     }
 
-    public void setStatementAmount(Double statementAmount) {
+    public void setStatementAmount(BigDecimal statementAmount) {
         this.statementAmount = statementAmount;
     }
 

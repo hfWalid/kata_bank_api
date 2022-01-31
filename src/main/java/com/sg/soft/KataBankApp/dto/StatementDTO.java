@@ -2,6 +2,7 @@ package com.sg.soft.KataBankApp.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class StatementDTO {
@@ -14,7 +15,7 @@ public class StatementDTO {
 
     @Schema(description = "The amount of money the account was debited when the statement was created .",
             example = "100", required = true)
-    private Double statementAmount;
+    private BigDecimal statementAmount;
 
     @Schema(description = "TType of statement if it is about a deposit or withdrawal.",
             example = "DEPOSIT", required = true)
@@ -27,7 +28,7 @@ public class StatementDTO {
     public StatementDTO() {
     }
 
-    public StatementDTO(Long id, Date statementDate, Double statementAmount, String statementType, AccountDTO account) {
+    public StatementDTO(Long id, Date statementDate, BigDecimal statementAmount, String statementType, AccountDTO account) {
         this.id = id;
         this.statementDate = statementDate;
         this.statementAmount = statementAmount;
@@ -51,11 +52,11 @@ public class StatementDTO {
         this.statementDate = statementDate;
     }
 
-    public Double getStatementAmount() {
+    public BigDecimal getStatementAmount() {
         return statementAmount;
     }
 
-    public void setStatementAmount(Double statementAmount) {
+    public void setStatementAmount(BigDecimal statementAmount) {
         this.statementAmount = statementAmount;
     }
 

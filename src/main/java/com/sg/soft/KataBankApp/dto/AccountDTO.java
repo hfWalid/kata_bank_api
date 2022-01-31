@@ -3,6 +3,8 @@ package com.sg.soft.KataBankApp.dto;
 import com.sg.soft.KataBankApp.model.KataUser;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.math.BigDecimal;
+
 public class AccountDTO {
 
     @Schema(description = "Unique identifier of the account.",
@@ -11,7 +13,7 @@ public class AccountDTO {
 
     @Schema(description = "The balance of the account.",
             example = "2300.00", required = false)
-    private Double balance;
+    private BigDecimal balance;
 
     @Schema(description = "The owner of the current account.",
             example = "1", required = true)
@@ -20,7 +22,7 @@ public class AccountDTO {
     public AccountDTO() {
     }
 
-    public AccountDTO(Long accountNumber, Double balance) {
+    public AccountDTO(Long accountNumber, BigDecimal balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
     }
@@ -33,11 +35,11 @@ public class AccountDTO {
         this.accountNumber = accountNumber;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 

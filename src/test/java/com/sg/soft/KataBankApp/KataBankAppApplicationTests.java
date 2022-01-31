@@ -39,6 +39,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class KataBankAppApplicationTests {
 
+	//TODO: Should add unit test for buildint blocks of the api
+
 	private MockMvc mockMvc;
 
 	@Mock

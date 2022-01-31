@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,6 +47,7 @@ public class StatementServiceImpl implements StatementService {
 
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "statementDate"));
 
+        //TODO: should be mapped to immutable object in order to separate model/entity objects from buisiness logic: Anemic model
         Account account = accountRepository.findFirstByAccountNumber(accountNumber);
         List<StatementDTO> resultList = new ArrayList<>();
 
@@ -62,9 +64,10 @@ public class StatementServiceImpl implements StatementService {
         return resultList;
     };
 
-    public StatementDTO makeDeposit(Long accountNumber, Double statementAmount){
+    public StatementDTO makeDeposit(Long accountNumber, BigDecimal statementAmount){
         LOGGER.info("StatementService -> make deposit for account ".concat(accountNumber.toString()).concat(" of amount ".concat(statementAmount.toString())));
 
+        //TODO: should be mapped to immutable object in order to separate model/entity objects from buisiness logic: Anemic model
         Account finalAccount;
         Statement statement = null;
 
@@ -75,7 +78,7 @@ public class StatementServiceImpl implements StatementService {
             statement = new Statement(statementAmount, Constants.DEPOSIT, account);
             statementRepository.save(statement);
 
-            finalAccount.setBalance(account.getBalance() + statementAmount);
+            finalAccount.setBalance(account.getBalance().add(statementAmount));
             BeanUtils.copyProperties(finalAccount, account);
             accountRepository.save(account);
 
@@ -86,9 +89,10 @@ public class StatementServiceImpl implements StatementService {
         return modelMapper.map(statement, StatementDTO.class);
     };
 
-    public StatementDTO makeWithdrawal(Long accountNumber, Double statementAmount){
+    public StatementDTO makeWithdrawal(Long accountNumber, BigDecimal statementAmount){
         LOGGER.info("StatementService -> make withdrawal for account ".concat(accountNumber.toString()).concat(" of amount ".concat(statementAmount.toString())));
 
+        //TODO: should be mapped to immutable object in order to separate model/entity objects from buisiness logic: Anemic model
         Account finalAccount;
         Statement statement = null;
 
@@ -96,11 +100,12 @@ public class StatementServiceImpl implements StatementService {
         try{
             finalAccount = account;
 
+            //TODO: should add exceptions handling to manage the oposite case
             if(account.getBalance().compareTo(statementAmount) < 0){
                 statement = new Statement(statementAmount, Constants.WITHDRAWAL, account);
                 statementRepository.save(statement);
 
-                finalAccount.setBalance(account.getBalance() - statementAmount);
+                finalAccount.setBalance(account.getBalance().add(statementAmount.negate()));
                 BeanUtils.copyProperties(finalAccount, account);
                 accountRepository.save(account);
             }

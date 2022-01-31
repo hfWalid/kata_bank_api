@@ -20,7 +20,15 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.modelmapper:modelmapper:3.0.0'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.1.49'
+}
 
+//Lombok add built-in compileOnly scope
+dependencies {
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+	testCompileOnly 'org.projectlombok:lombok:1.18.22'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 test {
