@@ -2,6 +2,7 @@ package com.sg.soft.KataBankApp;
 
 import com.sg.soft.KataBankApp.controller.StatementController;
 import com.sg.soft.KataBankApp.dto.AccountDTO;
+import com.sg.soft.KataBankApp.dto.AccountNumberDTO;
 import com.sg.soft.KataBankApp.dto.StatementDTO;
 import com.sg.soft.KataBankApp.dto.StatementRequestDTO;
 import com.sg.soft.KataBankApp.service.AccountService;
@@ -60,7 +61,13 @@ class KataBankAppApplicationTests {
 	@DisplayName("Test suit for -> should get all statement success")
 	public void shouldGetStatementsTest() throws Exception {
 
-		AccountDTO accountDTO = new AccountDTO(Constants.ACCOUNT_NUMBER, Constants.BALANCE);
+		AccountNumberDTO accountNumberDTO = new AccountNumberDTO(
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER);
+		AccountDTO accountDTO = new AccountDTO(accountNumberDTO, Constants.BALANCE);
 		StatementDTO statementDTO = new StatementDTO(1L, new Date(), Constants.STATEMENT_AMOUNT, Constants.DEPOSIT, accountDTO);
 
 		List<StatementDTO> expectedStatementsList = Arrays.asList(statementDTO);
@@ -90,7 +97,13 @@ class KataBankAppApplicationTests {
 	@Test
 	@DisplayName("Test suit for -> should make deposit success")
 	public void shouldMakeDepositTest() throws Exception {
-		AccountDTO accountDTO = new AccountDTO(Constants.ACCOUNT_NUMBER, Constants.BALANCE);
+		AccountNumberDTO accountNumberDTO = new AccountNumberDTO(
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER);
+		AccountDTO accountDTO = new AccountDTO(accountNumberDTO, Constants.BALANCE);
 		StatementDTO expectedStatementDTO = new StatementDTO(1L, new Date(), Constants.STATEMENT_AMOUNT, Constants.DEPOSIT, accountDTO);
 
 		StatementRequestDTO statementRequestDTO = new StatementRequestDTO();
@@ -116,7 +129,13 @@ class KataBankAppApplicationTests {
 	@Test
 	@DisplayName("Test suit for -> should make withdrawal success")
 	public void shouldMakeWithdrawalTest() throws Exception {
-		AccountDTO accountDTO = new AccountDTO(Constants.ACCOUNT_NUMBER, Constants.BALANCE);
+		AccountNumberDTO accountNumberDTO = new AccountNumberDTO(
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER,
+				Constants.ACCOUNT_NUMBER);
+		AccountDTO accountDTO = new AccountDTO(accountNumberDTO, Constants.BALANCE);
 		StatementDTO expectedStatementDTO = new StatementDTO(1L, new Date(), Constants.STATEMENT_AMOUNT, Constants.WITHDRAWAL, accountDTO);
 
 		StatementRequestDTO statementRequestDTO = new StatementRequestDTO();

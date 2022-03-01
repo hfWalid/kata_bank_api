@@ -7,9 +7,9 @@ import java.math.BigDecimal;
 
 public class AccountDTO {
 
-    @Schema(description = "Unique identifier of the account.",
-            example = "1234567890L", required = true)
-    private Long accountNumber;
+    @Schema(description = "Unique identifier of the account, composed of rib, ribKey, atmCode and iban and swift code.",
+            example = "1234567890", required = true)
+    private AccountNumberDTO accountNumber;
 
     @Schema(description = "The balance of the account.",
             example = "2300.00", required = false)
@@ -22,16 +22,16 @@ public class AccountDTO {
     public AccountDTO() {
     }
 
-    public AccountDTO(Long accountNumber, BigDecimal balance) {
+    public AccountDTO(AccountNumberDTO accountNumber, BigDecimal balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
     }
 
-    public Long getAccountNumber() {
+    public AccountNumberDTO getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(Long accountNumber) {
+    public void setAccountNumber(AccountNumberDTO accountNumber) {
         this.accountNumber = accountNumber;
     }
 
