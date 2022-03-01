@@ -12,9 +12,9 @@ public class Account {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    //TODO: should be devided to: Rib: bankCode + atmCode + accountNumber + ribKey  // IBAN unique // swiftCode
-    @Column(name = "account_number", unique = true, nullable = false)
-    private Long accountNumber;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "account_number", nullable = false)
+    private AccountNumber accountNumber;
 
     @Column(name = "balance")
     private BigDecimal balance;
@@ -32,11 +32,11 @@ public class Account {
         this.id = id;
     }
 
-    public Long getAccountNumber() {
+    public AccountNumber getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(Long accountNumber) {
+    public void setAccountNumber(AccountNumber accountNumber) {
         this.accountNumber = accountNumber;
     }
 
